@@ -1,7 +1,9 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import WeatherCard from './component.jsx'
 
-function App() {
+export default function Home() {
   const [city, setCity] = useState('Singapore')
   const [weather, setWeather] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -35,22 +37,21 @@ function App() {
         windSpeed: Math.round(weatherData.current.wind_speed_10m),
         code: weatherData.current.weather_code,
       })
-    } catch (err) {
+    } catch (requestError) {
       setWeather(null)
-      setError(err.message)
+      setError(requestError.message)
     } finally {
       setIsLoading(false)
     }
   }
 
   useEffect(() => {
-    getWeather(city)
+    getWeather(city);
   }, [])
 
   function handleSubmit(event) {
     event.preventDefault()
-    const nextCity = city.trim()
-    if (nextCity) getWeather(nextCity)
+    if (city.trim()) getWeather(city.trim())
   }
 
   return (
@@ -58,7 +59,7 @@ function App() {
       <div className="mx-auto max-w-md">
         <form onSubmit={handleSubmit} className="mb-4">
           <label htmlFor="city">City or location</label>
-          <div>
+          <div className="mt-1">
             <input id="city" value={city} onChange={(event) => setCity(event.target.value)} placeholder="Singapore" className="border p-1" />
             <button className="border bg-blue-600 p-1 text-white">Search</button>
           </div>
@@ -71,5 +72,3 @@ function App() {
     </main>
   )
 }
-
-export default App

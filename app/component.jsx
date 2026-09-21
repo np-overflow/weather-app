@@ -6,7 +6,7 @@ const weatherTypes = {
   81: ['🌧️', 'Rain showers'], 82: ['⛈️', 'Heavy showers'], 95: ['⛈️', 'Thunderstorm'],
 }
 
-function WeatherCard({ weather }) {
+export default function WeatherCard({ weather }) {
   const [icon, description] = weatherTypes[weather.code] ?? ['🌡️', 'Current weather']
 
   return (
@@ -28,5 +28,3 @@ function WeatherCard({ weather }) {
 function Detail({ label, value }) {
   return <div><p>{value}</p><p className="text-sm">{label}</p></div>
 }
-
-export default WeatherCard
